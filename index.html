@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PolarTwin — Explainable Digital Twin for remote Antarctic station management." />
+  <title>PolarTwin | Antarctic Mission Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">P</div>
+        <div><strong>PolarTwin</strong><span>Remote Mission Control</span></div>
+      </div>
+      <nav>
+        <button class="nav-item active" data-target="overview"><span>◉</span> Mission Overview</button>
+        <button class="nav-item" data-target="twin"><span>◇</span> Station Twin</button>
+        <button class="nav-item" data-target="analysis"><span>⌁</span> Risk Analysis</button>
+        <button class="nav-item" data-target="simulation"><span>↗</span> What-If Simulation</button>
+        <button class="nav-item" data-target="sources"><span>◫</span> Data Provenance</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="system-status"><i></i><div><b>Prototype Online</b><small>Decision-support mode</small></div></div>
+        <div class="demo-badge">DEMO ENVIRONMENT</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuBtn">☰</button>
+        <div class="crumb">POLAR OPERATIONS / <b>BHARATI</b></div>
+        <div class="top-actions"><span class="sync-dot"></span> Data model synchronized <span class="divider"></span><span id="clock">--:--:-- IST</span></div>
+      </header>
+
+      <section id="overview" class="view active-view">
+        <div class="hero-row">
+          <div><div class="eyebrow">DIGITAL TWIN · BHARATI</div><h1>Understand the station.<br><em>Act before risk compounds.</em></h1><p class="hero-copy">PolarTwin connects environmental conditions, energy, fuel and logistics into one explainable operational state.</p></div>
+          <div class="station-selector"><label>ACTIVE STATION</label><select id="stationSelect"><option>Bharati</option><option>Maitri</option></select><span>Antarctica · Indian Research Station</span></div>
+        </div>
+
+        <div class="alert-banner" id="mainAlert"><div class="alert-icon">!</div><div><b>ENERGY → FUEL CASCADE DETECTED</b><span>High simulated generator load combined with a shrinking fuel endurance window.</span></div><button onclick="goTo('analysis')">Inspect chain →</button></div>
+
+        <div class="section-head"><div><span class="eyebrow">CURRENT STATE</span><h2>Station operational picture</h2></div><span class="timestamp">Observation model · <b>demo</b></span></div>
+        <div class="metric-grid">
+          <article class="metric-card"><div class="metric-top"><span>ENVIRONMENT</span><span class="pill live">OFFICIAL</span></div><div class="metric-value" id="temp">-21.2°</div><div class="metric-label">Air temperature</div><div class="mini-line"><span>Wind</span><b id="wind">12.4 m/s</b></div></article>
+          <article class="metric-card warn"><div class="metric-top"><span>ENERGY</span><span class="pill sim">SIMULATED</span></div><div class="metric-value">91%</div><div class="metric-label">Generator utilization</div><div class="progress"><i style="width:91%"></i></div><div class="mini-line"><span>State</span><b>HIGH LOAD</b></div></article>
+          <article class="metric-card"><div class="metric-top"><span>FUEL</span><span class="pill sim">SIMULATED</span></div><div class="metric-value">29%</div><div class="metric-label">Reserve level</div><div class="progress fuel"><i style="width:29%"></i></div><div class="mini-line"><span>Projected endurance</span><b>16 days</b></div></article>
+          <article class="metric-card"><div class="metric-top"><span>LOGISTICS</span><span class="pill sim">SIMULATED</span></div><div class="metric-value">16<span class="unit">d</span></div><div class="metric-label">Next resupply window</div><div class="mini-line"><span>Risk</span><b class="text-red">WATCH</b></div><div class="mini-line"><span>Supply gap</span><b>Potential</b></div></article>
+        </div>
+
+        <div class="split-grid">
+          <article class="panel impact-panel"><div class="panel-head"><div><span class="eyebrow">SYSTEM REASONING</span><h3>How one change propagates</h3></div><span class="confidence">Confidence <b>82%</b></span></div>
+            <div class="cascade">
+              <div class="node"><small>01 · ENVIRONMENT</small><b>Cold conditions</b><span>-21.2°C observed</span></div><div class="arrow">↓</div>
+              <div class="node active"><small>02 · ENERGY</small><b>Heating demand ↑</b><span>Higher load pressure</span></div><div class="arrow">↓</div>
+              <div class="node active"><small>03 · GENERATION</small><b>Generator load 91%</b><span>Near operating threshold</span></div><div class="arrow">↓</div>
+              <div class="node risk"><small>04 · FUEL</small><b>Fuel endurance ↓</b><span>16 days projected</span></div><div class="arrow">↓</div>
+              <div class="node risk"><small>05 · LOGISTICS</small><b>Resupply exposure</b><span>Window may be compressed</span></div>
+            </div>
+          </article>
+          <article class="panel decision-panel"><div class="panel-head"><div><span class="eyebrow">OPERATOR BRIEF</span><h3>What needs attention?</h3></div><span class="severity">HIGH</span></div>
+            <div class="decision-box"><div class="decision-icon">!</div><div><h4>Energy–fuel resilience</h4><p>The current model projects a narrowing fuel margin if elevated generation demand persists.</p></div></div>
+            <div class="why"><b>WHY THIS FLAG?</b><ul><li>Generator utilization exceeds the 90% demonstration threshold.</li><li>Fuel endurance is below the 18-day planning reference used in this scenario.</li><li>Resupply timing leaves limited recovery margin.</li></ul></div>
+            <button class="primary-btn" onclick="goTo('simulation')">Test an intervention <span>→</span></button>
+          </article>
+        </div>
+      </section>
+
+      <section id="twin" class="view">
+        <div class="page-title"><div><span class="eyebrow">STATION MODEL</span><h1>Bharati Digital Twin</h1><p>Verified station structure + clearly labelled demonstration telemetry.</p></div><span class="source-chip">NCPOR-backed model</span></div>
+        <div class="twin-layout">
+          <article class="panel schematic"><div class="panel-head"><div><span class="eyebrow">SYSTEM MAP</span><h3>Infrastructure dependency view</h3></div><span class="legend"><i></i> Modelled relationship</span></div>
+            <div class="station-map">
+              <div class="map-label weather">ENVIRONMENT<br><b>−21.2°C</b></div>
+              <div class="connector c1"></div>
+              <div class="system-block main-building"><span>01</span><b>Main Station</b><small>Living · Labs · HVAC</small></div>
+              <div class="connector c2"></div>
+              <div class="system-block chp"><span>02</span><b>CHP Complex</b><small>3 × 100 kVA documented</small></div>
+              <div class="connector c3"></div>
+              <div class="system-block fuel-farm"><span>03</span><b>Fuel Farm</b><small>~300,000 L documented</small></div>
+              <div class="system-block logistics"><span>04</span><b>Logistics</b><small>Resupply planning</small></div>
+            </div>
+          </article>
+          <article class="panel facts"><div class="panel-head"><div><span class="eyebrow">STATION FACTS</span><h3>Known model parameters</h3></div></div><div id="factsList"></div><div class="note">Only publicly documented station facts are presented as verified. Operational telemetry is marked separately as simulated.</div></article>
+        </div>
+      </section>
+
+      <section id="analysis" class="view">
+        <div class="page-title"><div><span class="eyebrow">DECISION SUPPORT</span><h1>Risk analysis</h1><p>Trace the event from observation to operational consequence.</p></div><button class="ghost-btn" onclick="goTo('sources')">View provenance ↗</button></div>
+        <div class="analysis-grid">
+          <article class="panel chain-large"><div class="panel-head"><div><span class="eyebrow">CASCADE TRACE</span><h3>Energy–Fuel–Logistics exposure</h3></div><span class="severity">HIGH</span></div>
+            <div class="trace-row"><div class="trace-index">01</div><div><b>Environmental stress</b><p>Observed cold conditions increase the modelled heating requirement.</p></div><strong>INPUT</strong></div>
+            <div class="trace-line"></div>
+            <div class="trace-row"><div class="trace-index">02</div><div><b>Energy demand</b><p>Higher heating demand places additional pressure on generation.</p></div><strong>DEPENDENCY</strong></div>
+            <div class="trace-line"></div>
+            <div class="trace-row"><div class="trace-index">03</div><div><b>Generator utilization</b><p>Demonstration telemetry reaches 91%, crossing the configured high-load threshold.</p></div><strong>TRIGGER</strong></div>
+            <div class="trace-line"></div>
+            <div class="trace-row"><div class="trace-index">04</div><div><b>Fuel endurance</b><p>Higher modeled consumption reduces the projected reserve window.</p></div><strong>IMPACT</strong></div>
+            <div class="trace-line"></div>
+            <div class="trace-row"><div class="trace-index">05</div><div><b>Logistics exposure</b><p>The projected endurance approaches the simulated resupply planning window.</p></div><strong>RISK</strong></div>
+          </article>
+          <article class="panel rec-card"><span class="eyebrow">EXPLAINABLE RESPONSE</span><h3>Recommended intervention</h3><div class="rec-action">Reduce non-critical electrical load during peak heating demand.</div><div class="effect"><div><span>Generator load</span><b>91% → 81%</b></div><div><span>Fuel consumption</span><b>−8% est.</b></div><div><span>Projected endurance</span><b>16 → 18 days</b></div><div><span>Risk state</span><b>HIGH → MODERATE</b></div></div><div class="rec-foot"><span>Model confidence</span><b>82%</b></div><button class="primary-btn" onclick="goTo('simulation')">Run What-If simulation →</button></article>
+        </div>
+      </section>
+
+      <section id="simulation" class="view">
+        <div class="page-title"><div><span class="eyebrow">SCENARIO LAB</span><h1>What-If simulation</h1><p>Explore how an operational intervention changes the projected station state.</p></div><span class="source-chip sim-chip">SIMULATION · NOT LIVE CONTROL</span></div>
+        <div class="sim-layout">
+          <article class="panel controls"><div class="panel-head"><div><span class="eyebrow">INTERVENTION</span><h3>Reduce non-critical load</h3></div><span id="loadValue">10%</span></div><input id="loadSlider" type="range" min="0" max="20" value="10" /><div class="range-labels"><span>0%</span><span>10%</span><span>20%</span></div><div class="sim-note"><b>Scenario assumption</b><p>The prototype estimates the effect of reducing non-critical electrical demand. This is a modelled scenario, not a command to real station equipment.</p></div><button class="primary-btn" id="simulateBtn">Simulate outcome <span>↗</span></button></article>
+          <article class="panel outcome"><div class="panel-head"><div><span class="eyebrow">PROJECTED OUTCOME</span><h3>Before vs after</h3></div><span class="pill sim">SIMULATED</span></div><div class="compare"><div class="compare-head"><span>Metric</span><b>Current</b><b>Scenario</b></div><div><span>Generator load</span><b>91%</b><strong id="outLoad">81%</strong></div><div><span>Fuel consumption</span><b>100%</b><strong id="outFuel">92%</strong></div><div><span>Fuel endurance</span><b>16 days</b><strong id="outDays">18 days</strong></div><div><span>Risk state</span><b class="text-red">HIGH</b><strong class="text-green" id="outRisk">MODERATE</strong></div></div><div class="outcome-message" id="outcomeMessage"><b>Model interpretation:</b> a 10% reduction in non-critical load increases the projected operational margin in this demonstration scenario.</div></article>
+        </div>
+      </section>
+
+      <section id="sources" class="view">
+        <div class="page-title"><div><span class="eyebrow">TRANSPARENCY</span><h1>Data provenance</h1><p>PolarTwin separates verified public information from demonstration assumptions.</p></div></div>
+        <div class="source-grid" id="sourceGrid"></div>
+        <article class="panel methodology"><span class="eyebrow">OUR RULE</span><h3>Never present simulated telemetry as real station telemetry.</h3><p>Because operational generator, fuel and logistics telemetry is not publicly available in the same form as the station metadata and weather observations, the prototype labels those values as simulated. This keeps the demonstration honest while still allowing the decision-support pipeline to be evaluated.</p></article>
+      </section>
+
+      <footer><span>PolarTwin · SIH PS26060 prototype</span><span>Decision-support demonstration · No live equipment control</span></footer>
+    </main>
+  </div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
